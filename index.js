@@ -95,8 +95,15 @@ breedSelect.addEventListener('change', async function(event) {
         lifespan.textContent = document.createElement('p');
         const temperament = document.createElement('p');
         temperament.textContent = `Temperament: ${breedInfo.temperament}`;
+
+        infoDump.appendChild(title);
+        infoDump.appendChild(description);
+        infoDump.appendChild(lifespan);
+        infoDump.appendChild(temperament);
+    } catch (error) {
+        console.error('Error fetching breed info:' , error);
     }
-}
+});
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
