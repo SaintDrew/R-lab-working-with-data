@@ -158,23 +158,6 @@ breedSelect.addEventListener('change', async function(event) {
  *   you delete that favourite using the API, giving this function "toggle" functionality.
  * - You can call this function by clicking on the heart at the top right of any image.
  */
-export async function favourite(imgId) {
-  try {
-    // Checking if the image is already favorited by making a GET request to the favorite endpoint
-    const response = await axios.get(url)
-    if (response.data.length > 0) {
-        // If the image is already favorited, delete the favoriteusing the DELETE method
-        await axios.delete(url);
-        console.log('Favorite removed successfully');
-    } else {
-        // If the image is not favorited, add it to favorites using the POST method 
-        await axios.post(url);
-        console.log('Image favorited successfully');
-    }
-  } catch (error) {
-    console.log('Error favoriting image:' , error);
-  }
-}
 
 /**
  * 9. Test your favourite() function by creating a getFavourites() function.
@@ -185,6 +168,9 @@ export async function favourite(imgId) {
  *    If that isn't in its own function, maybe it should be so you don't have to
  *    repeat yourself in this section.
  */
+
+// This fucntion gets all favorites from the cat API
+
 
 /**
  * 10. Test your site, thoroughly!

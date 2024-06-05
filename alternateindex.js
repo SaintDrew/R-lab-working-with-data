@@ -236,3 +236,54 @@ breedSelect.addEventListener('change',  async function(event){
         document.body.style.cursor = 'auto';
         return Promise.reject(error);
     });
+
+/** 
+    * 8. To practice posting data, we'll create a system to "favourite" certain images.
+    * - The skeleton of this function has already been created for you.
+    * - This function is used within Carousel.js to add the event listener as items are created.
+    *  - This is why we use the export keyword for this function.
+    * - Post to the cat API's favourites endpoint with the given ID.
+    * - The API documentation gives examples of this functionality using fetch(); use Axios!
+    * - Add additional logic to this function such that if the image is already favourited,
+    *   you delete that favourite using the API, giving this function "toggle" functionality.
+    * - You can call this function by clicking on the heart at the top right of any image.
+    */
+
+   export async function favourite(imgId) {
+     try {
+       // Checking if the image is already favorited by making a GET request to the favorite endpoint
+       const response = await axios.get(`https://api.thecatapi.com/v1/favourites?image_id=${imgId}`);
+       if (response.data.length > 0) {
+           // If the image is already favorited, delete the favoriteusing the DELETE method
+           await axios.delete(`https://api.thecatapi.com/v1/favourites/${response.data[0].id}`);
+           console.log('Favorite removed successfully');
+       } else {
+           // If the image is not favorited, add it to favorites using the POST method 
+           await axios.post(`https://api.thecatapi.com/v1/favorites`, { image_id: imgId});
+           console.log('Image favorited successfully');
+       }
+     } catch (error) {
+       console.log('Error favoriting image:' , error);
+     }
+   }
+
+
+   /** 
+ * 9. Test your favourite() function by creating a getFavourites() function.
+ * - Use Axios to get all of your favourites from the cat API.
+ * - Clear the carousel and display your favourites when the button is clicked.
+ *  - You will have to bind this event listener to getFavouritesBtn yourself.
+ *  - Hint: you already have all of the logic built for building a carousel.
+ *    If that isn't in its own function, maybe it should be so you don't have to
+ *    repeat yourself in this section.
+ */
+
+// This fucntion gets all favorites from the cat API
+export async function getFavourites() {
+try {
+    // Make a GET request to the favorites endpoint to retrieve all favorites
+    const response = await axios.get(`https://api.thecatapi.com/v1/favourites?image_id=${imgId}`);
+       if (response.data.length > 0) {
+    // If the image is already favorited, deleted
+}
+}
