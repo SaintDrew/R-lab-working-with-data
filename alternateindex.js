@@ -283,7 +283,25 @@ export async function getFavourites() {
 try {
     // Make a GET request to the favorites endpoint to retrieve all favorites
     const response = await axios.get(`https://api.thecatapi.com/v1/favourites?image_id=${imgId}`);
-       if (response.data.length > 0) {
-    // If the image is already favorited, deleted
+    return response.data; // Returning teh array of favorites
+} catch (error) {
+    console.error.apply('Error getting favorites:' , error);
+    return[]; // Return empty array in case of error
+    }
 }
+// Function to display favorites in the carousel
+export async function displayFavorites() {
+    const favorites = await getFavourites(); // gathering all favorites from the cat API
+    carousel.innerHTML = ''; // Clearing it out
+    // Going over the favorites and adding them to the carousel
+    favorites.forEach(favorite => {
+        const img = document.createElement('img');
+        img.src = favorite.image.url;
+        img.alt = favorite.image.breeds[0].name;
+        carousel.appendChild(img);
+    });
 }
+
+// Ensuring the binding of the event listener to a button
+const getFavouritesBtn = document.getElementById('getFaouritesBtn');
+getFavouritesBtn.addEventListener('click', displayFavorites);
