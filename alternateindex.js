@@ -65,7 +65,7 @@ breedSelect.addEventListener('change', async function(event) {
         const description = document.createElement('p');
         description.textContent = breedInfo.description;
         const lifespan = document.createElement('p');
-        lifespan.textContent = `Lifespan:${breedInfo,life_span}`;
+        lifespan.textContent = `Lifespan:${breedInfo.life_span}`;
         const temperament = document.createElement('p');
         temperament.textContent = `Temperament: ${breedInfo.temperament}`;
 
@@ -93,3 +93,48 @@ return config;
 }, function(error){
     return Promise.reject(error);
 });
+
+// Adding a reponse iterceptor
+axios.interceptors.response.use(function(response){
+    // Calculating the time taken for teh request-reponse cycle
+    const reponseTime = new Date().getTime() - response.config.metadata.startTime;
+    console.log('Reponse received in', reponseTime, 'milliseconds');
+    return response;
+}, function(error) {
+    return Promise.reject(error);
+});
+
+breedSelect.addEventListener('change', async function(event){
+    carousel.innerHTML = '';
+    infoDump.innerHTML = '';
+
+    try {
+        const breedId = event.target.value;
+    // storing teh start tiem of the request in the request's metadata
+    const startTime = new Date().getTime();
+    const response = await axios.get(url, {metadata: { startTime }});
+    const data = response.data; // Accessing data property of response
+    data.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image.url;
+        img.alt = image.breeds[0].name;
+        carousel.appendChild(img);
+    });
+    const breedInfo = data[0];
+    const title = document.createElement('h2');
+    title.textContent = breedInfo.name;
+    const description = document.createElement('p');
+    description.textContent = breedInfo.description;
+    const lifespan = document.createElement('p');
+    lifespan.textContent = `Lifespan:${breedInfo.life_span}`;
+    const temperament = document.createElement('p');
+    temperament.textContent = `Temperament: ${breedInfo.temperament}`;
+
+    infoDump.appendChild(title);
+    infoDump.appendChild(description);
+    infoDump.appendChild(lifespan);
+    infoDump.appendChild(temperament);
+} catch (error) {
+    console.error('Error fetching breed info:' , error);
+    }
+})
