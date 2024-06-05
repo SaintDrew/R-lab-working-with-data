@@ -49,6 +49,7 @@ fetch(url)
     }
 }
 // Executing the initalLoad fucntion immediately
+initialLoad();
 
 /**
  * 2. Create an event handler for breedSelect that does the following:
@@ -65,9 +66,24 @@ fetch(url)
  * - Add a call to this function to the end of your initialLoad function above to create the initial carousel.
  */
 
-document.getElementById("breedSelect").addEventListener('click', function(){
-  alert('Button clicked!')
-});
+const carousel = document.getElementById('carousel');
+
+breedSelect.addEventListener('change', async function(event) {
+    // Clearing up the carousel and infoDump
+    carousel.innerHTML = '';
+    infoDump.innerHTML = '';
+    
+    try {
+        const breedId = event.target.value;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        //Creating the carousel elements
+        data.forEach(image => {
+            const img = document.createElement('img');
+        })
+    }
+}
 
 /**
  * 3. Fork your own sandbox, creating a new one named "JavaScript Axios Lab."
