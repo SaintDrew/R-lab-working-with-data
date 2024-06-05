@@ -34,12 +34,21 @@ fetch(url)
     const breedSelect = document.getElementById('breedSelect');
     try {
         // Fetching the list of cat brreeds from the cat API
-    }
-  const response = await fetch(url)
-  const data = await response.json()
+  const response = await fetch(url);
+  const breeds = await response.json();
 
-  const results = data.results
+  // Creating options for each breed and appending them to breedSelect
+  breeds.forEach(breed => {
+    const option = document.createElement('option');
+    option.value = breed.id;
+    option.text = breed.name;
+    breedSelect.appendChild(option);
+  });
+} catch (error) {
+    console.log('Error fecthing cat breeds', error);
+    }
 }
+// Executing the initalLoad fucntion immediately
 
 /**
  * 2. Create an event handler for breedSelect that does the following:
