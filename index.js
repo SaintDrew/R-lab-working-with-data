@@ -159,7 +159,21 @@ breedSelect.addEventListener('change', async function(event) {
  * - You can call this function by clicking on the heart at the top right of any image.
  */
 export async function favourite(imgId) {
-  // your code here
+  try {
+    // Checking if the image is already favorited by making a GET request to the favorite endpoint
+    const response = await axios.get(url)
+    if (response.data.length > 0) {
+        // If the image is already favorited, delete the favoriteusing the DELETE method
+        await axios.delete(url);
+        console.log('Favorite removed successfully');
+    } else {
+        // If the image is not favorited, add it to favorites using the POST method 
+        await axios.post(url);
+        console.log('Image favorited successfully');
+    }
+  } catch (error) {
+    console.log('Error favoriting image:' , error);
+  }
 }
 
 /**
