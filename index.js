@@ -81,7 +81,20 @@ breedSelect.addEventListener('change', async function(event) {
         //Creating the carousel elements
         data.forEach(image => {
             const img = document.createElement('img');
-        })
+            img.src = image.url;
+            img.alt = image.breeds[0].name;
+            carousel.appendChild(img);
+        });
+        // Creating the infoDump elements
+        const breedInfo = data[0];
+        const title = document.createElement('h2');
+        title.textContent = breedInfo.name;
+        const description = document.createElement('p');
+        description.textContent = breedInfo.description;
+        const lifespan = document.createElement('p');
+        lifespan.textContent = document.createElement('p');
+        const temperament = document.createElement('p');
+        temperament.textContent = `Temperament: ${breedInfo.temperament}`;
     }
 }
 
