@@ -217,3 +217,22 @@ breedSelect.addEventListener('change',  async function(event){
         console.error('Error fetching breed info:' , error);
         }
     });
+
+    /**
+ * 7. As a final element of progress indication, add the following to your axios interceptors:
+ * - In your request interceptor, set the body element's cursor style to "progress."
+ * - In your response interceptor, remove the progress cursor style from the body element.
+ */
+
+    axios.interceptors.response.use(function(response){
+        // Calculating the time taken for teh request-reponse cycle
+        const reponseTime = new Date().getTime() - response.config.metadata.startTime;
+        console.log('Reponse received in', reponseTime, 'milliseconds');
+        // Then Removing the progress cursor style from the body element
+        document.body.style.cursor ='auto';
+        return reponse;
+    }, function(eroor){
+        // Removing the progress cursor style from the body element in case of error
+        document.body.style.cursor = 'auto';
+        return Promise.reject(error);
+    });
