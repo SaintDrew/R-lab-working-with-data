@@ -31,3 +31,40 @@ async function initalLoad() {
         console.error('Error fetching cat breeds', error);
     }
 }
+
+const carousel = document.getElementById('carousel');
+
+breedSelect.addEventListener('change', async function(event) {
+    // Clearing up the carousel and infoDump
+    carousel.innerHTML = '';
+    infoDump.innerHTML = '';
+    
+    try {
+        const breedId = event.target.value;
+        const response = await axios.get(url);
+        const data = response.json();
+        data.forEach(image => {
+            const img = document.createElement('img');
+            img.src = image.url;
+            img.alt = image.breeds[0].name;
+            carousel.appendChild(img);
+        });
+
+        const breedInfo = data[0];
+        const title = document.createElement('h2');
+        title.textContent = breedInfo.name;
+        const description = document.createElement('p');
+        description.textContent = breedInfo.description;
+        const lifespan = document.createElement('p');
+        lifespan.textContent = `Lifespan:${breedInfo,life_span}`;
+        const temperament = document.createElement('p');
+        temperament.textContent = `Temperament: ${breedInfo.temperament}`;
+
+        infoDump.appendChild(title);
+        infoDump.appendChild(description);
+        infoDump.appendChild(lifespan);
+        infoDump.appendChild(temperament);
+    } catch (error) {
+        console.error('Error fetching breed info:' , error);
+    }
+});

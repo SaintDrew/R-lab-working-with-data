@@ -92,7 +92,7 @@ breedSelect.addEventListener('change', async function(event) {
         const description = document.createElement('p');
         description.textContent = breedInfo.description;
         const lifespan = document.createElement('p');
-        lifespan.textContent = document.createElement('p');
+        lifespan.textContent = `Lifespan:${breedInfo,life_span}`;
         const temperament = document.createElement('p');
         temperament.textContent = `Temperament: ${breedInfo.temperament}`;
 
