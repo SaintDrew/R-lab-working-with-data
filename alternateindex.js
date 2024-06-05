@@ -305,3 +305,13 @@ export async function displayFavorites() {
 // Ensuring the binding of the event listener to a button
 const getFavouritesBtn = document.getElementById('getFaouritesBtn');
 getFavouritesBtn.addEventListener('click', displayFavorites);
+
+/**
+ * 10. Test your site, thoroughly!
+ * - What happens when you try to load the Malayan breed?
+ *  - If this is working, good job! If not, look for the reason why and fix it!
+ * - Test other breeds as well. Not every breed has the same data available, so
+ *   your code should account for this.
+ */
+
+// FIN!!!
