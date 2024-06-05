@@ -30,8 +30,11 @@ fetch(url)
   .then(inputData => console.log(inputData))
   .catch(error => console.error('Error', error));
 
-async function initialLoad() {
-  inputData = inputEl.value;
+  async function initialLoad() {
+    const breedSelect = document.getElementById('breedSelect');
+    try {
+        // Fetching the list of cat brreeds from the cat API
+    }
   const response = await fetch(url)
   const data = await response.json()
 
